@@ -1,4 +1,3 @@
-const saxeli = document.getElementById("name");
 const message = document.getElementById("message");
 const button = document.getElementById("buttoni");
 const messageBox = document.getElementById("messagebox");
@@ -7,6 +6,8 @@ const spinner = document.getElementById("spinner");
 
 let messages = [];
 let length;
+
+
 
 function getData() {
   fetch(
@@ -26,7 +27,7 @@ function getData() {
         const htmls = [];
         for (let i of messages) {
           htmls.push(
-            `<li class="list-group-item"><span style="color:grey; font-size: 10px">${i.name}</span> ${i.message}</li>`
+            `<li class="list-group-item"><span style="color:grey; font-size: 10px">Incognito</span> ${i.message}</li>`
           );
         }
         messageBox.innerHTML = htmls.join("");
@@ -53,8 +54,7 @@ function checkValidInput(element) {
 }
 
 function sendMessage() {
-  if (saxeli.value && message.value) {
-
+  if (message.value) {
     spinner.innerHTML = `<div style="display: block!important"  class="spinner-border d-flex justify-content-center mt-2 spinner-border-sm" role="status">
     <span class="sr-only"></span>
 </div>`;
@@ -64,13 +64,11 @@ function sendMessage() {
       {
         method: "POST",
         body: JSON.stringify({
-          name: saxeli.value,
           message: message.value,
         }),
       }
     )
       .then((response) => {
-        saxeli.value = "";
         message.value = "";
       })
       .catch((error) => {
@@ -78,27 +76,27 @@ function sendMessage() {
       });
   } else {
     info.style.display = "block";
-    saxeli.style.borderColor = "red";
     message.style.borderColor = "red";
 
-    if (saxeli.value) {
-      saxeli.style.borderColor = "lightgrey";
-    }
     if (message.value) {
       message.style.borderColor = "lightgrey";
     }
   }
 }
 
+message.addEventListener('keydown', (e)=>{
+  if(e.keyCode === 13){
+    sendMessage()
+  }
+ 
+} )
+
 function deleteMessage() {
   fetch("https://httprequeststudy-default-rtdb.firebaseio.com/messages.json", {
     method: "DELETE",
   }).then((response) => {
-    console.log(response);
+    
   });
 }
 
-function vswavlob(info) {
-  console.log(info);
-  info.style.backgroundColor = "white";
-}
+
