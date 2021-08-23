@@ -39,6 +39,7 @@ function getData() {
       });
   });
 }
+getData();
 
 setInterval(() => {
   getData();
