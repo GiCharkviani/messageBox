@@ -3,6 +3,7 @@ const message = document.getElementById("message");
 const button = document.getElementById("buttoni");
 const messageBox = document.getElementById("messagebox");
 const info = document.getElementById("info");
+const spinner = document.getElementById("spinner");
 
 let messages = [];
 let length;
@@ -29,6 +30,11 @@ function getData() {
           );
         }
         messageBox.innerHTML = htmls.join("");
+
+        spinner.innerHTML = `<div style="display: none!important"  class="spinner-border d-flex justify-content-center mt-2 spinner-border-sm" role="status">
+        <span class="sr-only"></span>
+    </div>`;
+
       });
   });
 }
@@ -36,7 +42,6 @@ function getData() {
 setInterval(() => {
   getData();
 }, 1000);
-
 
 function checkValidInput(element) {
   if (element.value === "") {
@@ -49,6 +54,11 @@ function checkValidInput(element) {
 
 function sendMessage() {
   if (saxeli.value && message.value) {
+
+    spinner.innerHTML = `<div style="display: block!important"  class="spinner-border d-flex justify-content-center mt-2 spinner-border-sm" role="status">
+    <span class="sr-only"></span>
+</div>`;
+
     fetch(
       "https://httprequeststudy-default-rtdb.firebaseio.com/messages.json",
       {
@@ -58,15 +68,18 @@ function sendMessage() {
           message: message.value,
         }),
       }
-    ).then((response) => {
-      saxeli.value = "";
-      message.value = "";
-    });
+    )
+      .then((response) => {
+        saxeli.value = "";
+        message.value = "";
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   } else {
     info.style.display = "block";
     saxeli.style.borderColor = "red";
     message.style.borderColor = "red";
-    console.log("არ მუშაობს");
 
     if (saxeli.value) {
       saxeli.style.borderColor = "lightgrey";
@@ -74,20 +87,18 @@ function sendMessage() {
     if (message.value) {
       message.style.borderColor = "lightgrey";
     }
-    
   }
 }
 
-
-function deleteMessage(){
-  fetch('https://httprequeststudy-default-rtdb.firebaseio.com/messages.json', {
-    method: 'DELETE'
-  }).then(response => {
-    console.log(response)
-  })
+function deleteMessage() {
+  fetch("https://httprequeststudy-default-rtdb.firebaseio.com/messages.json", {
+    method: "DELETE",
+  }).then((response) => {
+    console.log(response);
+  });
 }
 
-function vswavlob(info){
-  console.log(info)
-  info.style.backgroundColor = 'grey'
+function vswavlob(info) {
+  console.log(info);
+  info.style.backgroundColor = "white";
 }
