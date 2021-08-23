@@ -15,7 +15,7 @@
 
 <body>
     <div class="container">
-        <h2 class="text-center lead">მიმოწერა</h2>
+        <h2 class="text-center lead">Chat</h2>
         <ul class="list-group" id="messagebox">
         </ul>
 
@@ -24,20 +24,14 @@
 
         </div>
 
-
         <hr>
         <div class="row">
             <div class="col-12" style="display: none;" id="info">
                 <h2 class="text-center lead text-danger">შეავსე ყველა ველი</h2>
             </div>
 
-            <div class="col-12">
-                <input onclick="vswavlob(this)" oninput="checkValidInput(this)" placeholder="სახელი" type="text"
-                    class="form-control" id="name">
-            </div>
-
             <div class="col-12 mt-2">
-                <textarea oninput="checkValidInput(this)" placeholder="მესიჯი" type="text" class="form-control"
+                <textarea onkeydown="" oninput="checkValidInput(this)" placeholder="Message" type="text" class="form-control"
                     id="message"></textarea>
             </div>
 
